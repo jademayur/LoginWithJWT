@@ -8,6 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AngularCors", policy =>
+    {
+        policy
+            .WithOrigins(
+                "http://localhost:4200"   // Angular dev
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials();
+    });
+});
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -35,6 +50,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+
+
 builder.Services.AddAuthorization();
 
 builder.Services.AddOpenApi();
@@ -52,6 +69,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AngularCors");
 
 app.UseAuthorization();
 
