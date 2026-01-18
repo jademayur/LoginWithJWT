@@ -14,7 +14,7 @@ namespace LoginWithJWT.Controllers
         {
             _userService = userService;
         }
-
+        // Endpoint to register a new user
         [HttpPost]
         public async Task<IActionResult> AddUser(RegisterRequestDto request)
         {

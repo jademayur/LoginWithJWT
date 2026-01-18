@@ -13,12 +13,12 @@ namespace LoginWithJWT.Repositories
             this.appDbContext = appDbContext;
         }
 
-
-       public async Task<User?> GetByEmailIdAsync(string emailId)
+        //Get User by EmailId
+        public async Task<User?> GetByEmailIdAsync(string emailId)
         {
             return await appDbContext.users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == emailId);
         }
-
+        //Add User
         public async Task AddAsync(User user)
         {
            appDbContext.users.Add(user);
