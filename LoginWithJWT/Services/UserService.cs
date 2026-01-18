@@ -16,6 +16,7 @@ namespace LoginWithJWT.Services
             var existingUser = await _userRepository.GetByEmailIdAsync(
             request.Email.ToLower()
         );
+            //Check Email in Database
 
             if (existingUser != null)
                 throw new Exception("User already exists");

@@ -14,6 +14,7 @@ namespace LoginWithJWT.Services
         {
             _config= config ;
         }
+        //Token generation method
         public string GenerateToken(User user)
         {
            var claim = new []

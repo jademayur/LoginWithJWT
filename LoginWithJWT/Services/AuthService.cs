@@ -19,13 +19,14 @@ namespace LoginWithJWT.Services
         {
             var user = _userRepository.GetByEmailIdAsync(loginRequest.Email).Result;
 
-                    
-            if(user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
+
+            //Validate user credentials        
+            if (user == null || !BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
             {
                 throw new UnauthorizedAccessException("Invalid credentials");
             }
-
-            var  token = _jwtTokenService.GenerateToken(user);
+            //Generate JWT Token
+            var token = _jwtTokenService.GenerateToken(user);
             return new LoginResponseDto
             {
                 Token = token,
